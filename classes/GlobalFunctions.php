@@ -215,4 +215,12 @@
 		return "http://www.bungie.net/Stats/emblem.ashx?s=$size&0=$c0&1=$c1&2=$c2&3=$c3&fi=$fi&bi=$bi&fl=$fl&m=3";
 	}
 
+	function flush_buffers(){ 
+		// Proper Flush Buffers command.
+		ob_end_flush(); 
+		ob_flush(); 
+		flush(); 
+		ob_start(); 
+	} 
+
 ?>
