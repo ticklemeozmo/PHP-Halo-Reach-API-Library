@@ -1,15 +1,20 @@
 <?php	
-	//Requests
 	function APIRequest($path){
 		define('BASE_URL', 'http://www.bungie.net/api/reach/reachapijson.svc', false);
-		$request = preg_replace('#/.{46}/#', '/', $path);
-		$localpath = "/home/htdocs/halo/cache" . strtolower(substr($request,0,strrpos($request,"/")));
+		$request = preg_replace('#/.{46}/#', '/', $path);	/* Remove the APIkey for additional use. */
+		$localpath = LOCALCACHE . strtolower(substr($request,0,strrpos($request,"/")));
 		$localfile = $localpath . strtolower(strrchr($request,"/")) . ".json";
 
-		// Horribly embarassing caching check, never show anyone
+		/* Horribly embarassing caching check, never show anyone */
 		if (!@filemtime($localfile)) { $docache = true; }
 		else
 		{
+			/*
+			   Expire file and player content after 10 minutes. 10 minutes was chosen 
+			   because that is the average time of a given match. Games do NOT expire.
+			   A downloaded game will never need to be refreshed.
+			*/
+
 			if (strpos($path, "file", 1)   && (time() - filemtime($localpath) > 600)) { $docache = true; }
 			if (strpos($path, "player", 1) && (time() - filemtime($localpath) > 600)) { $docache = true; }
 		}
@@ -28,9 +33,10 @@
 				throw new Exception('json_decode failed');
 			}
 
+			/* If the decode succeeded, proceed to cache the file locally. */
 			if (!file_exists($localpath)) { mkdir($localpath, 0777, true) or die ("cannot create $localpath"); }
 			$cache=fopen("$localfile", "w") or die("cannot open $localfile for writing");
-			fwrite($cache, $rawjson) or die("cannot write $localfile");  //write contents of feed to cache file
+			fwrite($cache, $rawjson) or die("cannot write $localfile");
 			fclose($cache);
 		}
 		else
