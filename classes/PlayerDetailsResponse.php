@@ -69,5 +69,33 @@
 		public function __toString(){
 			return __CLASS__;
 		}
+
+		/*! @function getHopperById
+			@abstract gets playlist stats of a given HopperId 
+			@param id int - the hopper 
+			@result Object - the PlayerAiAggregateDetailReach of a given hopper or
+		   		NULL if it could not be found
+		*/
+		public function getHopperById($id){
+			foreach($this->StatisticsByPlaylist as $Playlist){
+				if($Playlist->HopperId == $id){
+					return $Playlist;
+				}
+			}
+		}
+
+		/*! @function getVariantById
+			@abstract gets playlist stats of a given Variant and Difficulty (Used for Campaign and Firefight)
+			@param id int - the hopper 
+			@result Object - the PlayerAiAggregateDetailReach of a given Variant by difficulty or
+		   		NULL if it could not be found
+		*/
+		public function getVariantById($id = FIREFIGHT, $difficulty = HEROIC){
+			foreach($this->AiStatistics as $Playlist){
+				if(($Playlist->VariantClass == $id) && ($Playlist->game_difficulty == $difficulty)){
+					return $Playlist;
+				}
+			}
+		}
 	}
 ?>

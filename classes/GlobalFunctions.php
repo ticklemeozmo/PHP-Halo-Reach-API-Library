@@ -1,4 +1,21 @@
-<?php	
+<?php
+	/* GameDifficulties */
+	define ('EASY', '0');
+	define ('NORMAL', '1');
+	define ('HEROIC', '2');
+	define ('LEGENDARY', '3');
+	define ('ALL', '255');
+	
+	/* GameVariants */
+	define ('UNKNOWN', '0');
+	define ('INVASION', '1');
+	define ('ARENA', '2');
+	define ('COMPETITIVE', '3');
+	define ('CAMPAIGN', '4');
+	define ('FIREFIGHT', '5');
+	define ('CUSTOM', '6');
+
+
 	function APIRequest($path){
 		define('BASE_URL', 'http://www.bungie.net/api/reach/reachapijson.svc', false);
 		$request = preg_replace('#/.{46}/#', '/', $path);	/* Remove the APIkey for additional use. */
