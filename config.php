@@ -12,7 +12,7 @@
 
 	// define ('APIKEY', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890='); /* Do not tell or give anyone your key */
 	// define ('LOCALCACHE', '/home/htdocs/halo/cache');  /* No trailing slash. */
-	// define ('TIMEZONE', 'America/New_York');
+	// define ('TIMEZONE', 'America/New_York'); /* See: http://www.php.net/manual/en/timezones.php */
 
 	@include_once("config.local");
 	// require_once("classes/GlobalFunctions.php");
