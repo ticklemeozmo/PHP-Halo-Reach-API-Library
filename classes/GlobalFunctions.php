@@ -182,22 +182,33 @@
 			return 'th';
 		}
 	}
-	function parseJSONDate($theDate){
+
+	/*!	@function parseJSONDate
+		@abstract returns a DateTime object from the Bungie formatted JSON date string.
+		@param theDate string - string in "/Date(1234567890000-0000)/" format.
+		@result DateTime Object - for ease of parsing and displaying in your timezone.
+		@availability PHP 5.2 or greater.
+		@discussion To display in your timezone:  date_timezone_set($date, timezone_open('America/New_York'));  echo date_format($date, 'Y-m-d H:i:sP') . "\n";
+	 */
+	function parseJSONDate($theDate)
+	{
 		$theDate = str_replace(array('/Date(', ')/'), '', $theDate);
 		
 		$expr = '/^\d{10}|(-|\+)\d+$/';
 		preg_match_all($expr, $theDate, $theDate, PREG_PATTERN_ORDER);
 		
-		date_default_timezone_set('America/Los_Angeles');
-		
-		//$theDate = date_create_from_format('U O', ($theDate[0][0] . ' ' . $theDate[0][1]));
-		//Webhost has old[er] PHP version, refer to function below for compatibile workaround
 
+		/* PHP 5.3.0 or greater */
+		// $theDate = date_create_from_format('U O', ($theDate[0][0] . ' ' . $theDate[0][1]));
+		// date_default_timezone_set(TIMEZONE);
+
+		/* PHP 5.2.x */
 		$theDate = date_create('@' . $theDate[0][0]);
-		$theDate->setTimezone(new DateTimeZone('America/Los_Angeles'));
-		
+		$theDate->setTimezone(new DateTimeZone(TIMEZONE));
+
 		return $theDate;	
 	}
+
 	function validateIPage($pageNum){
 		$expr = '/^[1-9]+[0-9]*$/'; //Numbers shouldn't be beginning with a 0
 		if(preg_match($expr, $page)){

@@ -12,6 +12,8 @@
 
 	// define ('APIKEY', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890='); /* Do not tell or give anyone your key */
 	// define ('LOCALCACHE', '/home/htdocs/halo/cache');  /* No trailing slash. */
+	// define ('TIMEZONE', 'America/New_York');
+
 	@include_once("config.local");
 	// require_once("classes/GlobalFunctions.php");
 ?>
