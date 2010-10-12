@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	require_once('GlobalFunctions.php');
 	class WeaponCarnageStats{
 		private $Deaths; //Integer

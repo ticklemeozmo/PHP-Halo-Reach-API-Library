@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	require_once('GlobalFunctions.php');
 	class PlayerAiAggregateDetailReach extends PlayerAggregateDetailReach{	
 		private $biggest_kill_points; //Integer

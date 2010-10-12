@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	require_once('GlobalFunctions.php');
 	class GameHistoryResponse extends APIResponse{
 		private $RecentGames = array(); //Array of GameSummary

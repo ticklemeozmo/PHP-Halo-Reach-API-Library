@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	require_once('GlobalFunctions.php');
 	class FileResponse extends APIResponse{
 		private $Files = array(); //Array of ReachFile

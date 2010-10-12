@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 	require_once('GlobalFunctions.php');
-	class PlayerGameReach{
+	class PlayerGameReach implements iTotals, iAverages, iCollections{
 		private $AiEventAggregates = array(); //Array of AiEventAggregate
 		private $Assists; //Integer
 		private $AvgDeathDistanceMeters; //Float
@@ -101,6 +101,207 @@
 		}
 		public function __toString(){
 			return __CLASS__;
+		}
+	
+		//Custom
+		
+		//iTotals
+		public function getTotalAssists(){
+			return $this->Assists;
+		}
+		public function getTotalBetrayals(){
+			return $this->Betrayals;
+		}
+		public function getTotalDeaths(){
+			return $this->Deaths;
+		}
+		public function getTotalDNFs(){
+			return (int)$this->DNF;
+		}
+		public function getTotalHeadshots(){
+			return $this->Headshots;
+		}
+		public function getTotalGuests(){
+			return (int)$this->IsGuest;
+		}
+		public function getTotalKills(){
+			return $this->Kills;
+		}
+		public function getTotalMultiMedalCount(){
+			return $this->MultiMedalCount;
+		}
+		public function getTotalOtherMedalCount(){
+			return $this->OtherMedalCount;
+		}
+		public function getTotalRating(){
+			return $this->Rating;
+		}
+		public function getTotalScore(){
+			return $this->Score;
+		}
+		public function getTotalSpreeMedalCount(){
+			return $this->SpreeMedalCount;
+		}
+		public function getTotalStyleMedalCount(){
+			return $this->StyleMedalCount;
+		}
+		public function getTotalSuicides(){
+			return $this->Suicides;
+		}
+		public function getTotalMedalCount(){
+			return $this->TotalMedalCount;
+		}
+		public function getTotalUniqueMultiMedalCount(){
+			return $this->UniqueMultiMedalCount;
+		}
+		public function getTotalUniqueOtherMedalCount(){
+			return $this->UniqueOtherMedalCount;
+		}
+		public function getTotalUniqueSpreeMedalCount(){
+			return $this->UniqueSpreeMedalCount;
+		}
+		public function getTotalUniqueStyleMedalCount(){
+			return $this->UniqueStyleMedalCount;
+		}
+		public function getTotalUniqueTotalMedalCount(){
+			return $this->UniqueTotalMedalCount;
+		}
+		public function getTotalKillDeathRatio(){
+			$kills = $this->getTotalKills();
+			$deaths = $this->getTotalDeaths();
+			if($deaths != 0){
+				return $kills / $deaths;
+			}
+			return $kills;
+		}
+		public function getTotalKillDeathSpread(){
+			$kills = $this->getTotalKills();
+			$deaths = $this->getTotalDeaths();
+			return $kills - $deaths;
+		}
+		
+		//iAverages
+		public function getAverageAssists(){
+			return $this->Assists;
+		}
+		public function getAverageDeathDistance(){
+			return $this->AvgDeathDistanceMeters;
+		}
+		public function getAverageKillDistance(){
+			return $this->AvgKillDistanceMeters;
+		}
+		public function getAverageBetrayals(){
+			return $this->Betrayals;
+		}
+		public function getAverageDeaths(){
+			return $this->Deaths;
+		}
+		public function getAverageDNFs(){
+			return (int)$this->DNF;
+		}
+		public function getAverageHeadshots(){
+			return $this->Headshots;
+		}
+		public function getAverageGuests(){
+			return (int)$this->IsGuest;
+		}
+		public function getAverageKills(){
+			return $this->Kills;
+		}
+		public function getAverageMultiMedalCount(){
+			return $this->MultiMedalCount;
+		}
+		public function getAverageOtherMedalCount(){
+			return $this->OtherMedalCount;
+		}
+		public function getAverageRating(){
+			return $this->Rating;
+		}
+		public function getAverageScore(){
+			return $this->Score;
+		}
+		public function getAverageSpreeMedalCount(){
+			return $this->SpreeMedalCount;
+		}
+		public function getAverageStyleMedalCount(){
+			return $this->StyleMedalCount;
+		}
+		public function getAverageSuicides(){
+			return $this->Suicides;
+		}
+		public function getAverageTotalMedalCount(){
+			return $this->TotalMedalCount;
+		}
+		public function getAverageUniqueMultiMedalCount(){
+			return $this->UniqueMultiMedalCount;
+		}
+		public function getAverageUniqueOtherMedalCount(){
+			return $this->UniqueOtherMedalCount;
+		}
+		public function getAverageUniqueSpreeMedalCount(){
+			return $this->UniqueSpreeMedalCount;
+		}
+		public function getAverageUniqueStyleMedalCount(){
+			return $this->UniqueStyleMedalCount;
+		}
+		public function getAverageUniqueTotalMedalCount(){
+			return $this->UniqueTotalMedalCount;
+		}
+		public function getAverageKillDeathSpread(){
+			return $this->getTotalKillDeathRatio();
+		}
+		public function getAverageKillDeathRatio(){
+			return $this->getTotalKillDeathSpread();
+		}
+		
+		//iCollections
+		public function getAllAiEventAggregates(){
+			return $this->AiEventAggregates;
+		}
+		public function getAllDeathsOverTime(){
+			return $this->DeathsOverTime;
+		}
+		public function getAllKillsOverTime(){
+			return $this->KillsOverTime;
+		}
+		public function getAllMedalsOverTime(){
+			return $this->MedalsOverTime;
+		}
+		public function getAllPlayerDetails(){
+			return array($this->PlayerDetails);
+		}
+		public function getAllPointsOverTime(){
+			return $this->PointsOverTime;
+		}
+		public function getAllSpecificMedalCounts(){
+			return $this->SpecificMedalCounts;
+		}
+		public function getAllWeaponCarnageReports(){
+			return $this->WeaponCarnageReport;
+		}
+		public function getAllGuests(){
+			if($this->IsGuest){
+				return array($this);
+			}
+			return array();
+		}
+		public function getAllNonGuests(){
+			if(!$this->IsGuest){
+				return array($this);
+			}
+			return array();
+		}
+		public function getAllDNFs(){
+			if($this->DNF){
+				return array($this);
+			}
+			return array();
+		}
+		public function getAllNonDNFs(){
+			if(!$this->DNF){
+				return array($this);
+			}
+			return array();
 		}
 	}
 ?>

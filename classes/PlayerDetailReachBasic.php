@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	require_once('GlobalFunctions.php');
 	class PlayerDetailReachBasic{
 		protected $armor_completion_percentage; //Float

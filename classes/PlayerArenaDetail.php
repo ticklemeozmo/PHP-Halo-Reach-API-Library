@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	require_once('GlobalFunctions.php');
 	class PlayerArenaDetail{
 		private $current_daily_rating; //Integer

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	require_once('GlobalFunctions.php');
 	class PlayerDetailReachAggregate extends PlayerDetailReachBasic{
 		private $commendation_completion_percentage; //Float

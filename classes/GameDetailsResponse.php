@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	require_once('GlobalFunctions.php');
 	class GameDetailsResponse extends APIResponse{
 		private $GameDetails; //Game

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	require_once('GlobalFunctions.php');
 	abstract class APIResponse{
 		protected $reason; //String

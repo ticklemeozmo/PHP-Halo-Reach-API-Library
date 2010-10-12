@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	require_once('GlobalFunctions.php');
 	class PlayerDetailsResponse extends APIResponse{
 		private $AiStatistics = array(); //Array of PlayerAiAggregateDetailReach
