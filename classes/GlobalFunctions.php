@@ -18,7 +18,7 @@
 
 	function APIRequest($path){
 		define('BASE_URL', 'http://www.bungie.net/api/reach/reachapijson.svc', false);
-		$request = preg_replace('#/.{46}/#', '/', $path);	/* Remove the APIkey for additional use. */
+		$request = preg_replace('#/.{46}#', '', $path);	/* Remove the APIkey for additional use. */
 		$localpath = LOCALCACHE . strtolower(substr($request,0,strrpos($request,"/")));
 		$localfile = $localpath . strtolower(strrchr($request,"/")) . ".json";
 
@@ -38,7 +38,7 @@
 
 		if ($docache)
 		{
-		    echo "<!-- Using Live Content for $request -->";	
+		    // echo "<!-- Using Live Content for $request -->";	
 			$rawjson = @file_get_contents(BASE_URL . $path);
 
 			if(!$rawjson){
@@ -58,7 +58,7 @@
 		}
 		else
 		{
-			echo "<!-- Using Cache for $request -->";
+			// echo "<!-- Using Cache for $request -->";
 			$rawjson = @file_get_contents($localfile);
 
 			if(!$rawjson){
@@ -70,7 +70,7 @@
 				throw new Exception('json_decode failed');
 			}
 		}
-		return $json;
+		return $rawjson;
 	}
 	function getGameMetadata($useLocalCopy = true){
 		///game/metadata/{identifier}
@@ -84,61 +84,92 @@
 		$path = '/game/metadata/' . rawurlencode(APIKEY);
 		return new MetaDataResponse(APIRequest($path));
 	}
-	function getGameHistory($gamertag, $variant_class = 'Unknown', $iPage = 0){
+	
+	/*!	@function getCurrentChallenges
+		@abstract returns a DateTime object from the Bungie formatted JSON date string.
+		@param json string - if set, returns the json string
+		@result GameChallengesResponse Object - challenges for the day
+		@result string - json string unparsed
+	 */
+	function getCurrentChallenges($json = false){
+		///game/challenges/{identifier}/
+		$path = '/game/challenges/' . rawurlencode(APIKEY);
+		$return = APIRequest($path);
+		if ($json) { return $return; } else { return new GameDetailsResponse($return); }
+	}
+	
+	function getGameHistory($gamertag, $variant_class = 'Unknown', $iPage = 0, $json = false){
 		///player/gamehistory/{identifier}/{gamertag}/{variant_class_string}/{iPage}
 		//variant_class = {"Campaign", "Firefight", "Competitive", "Arena", "Unknown"}
 		$path = '/player/gamehistory/' . rawurlencode(APIKEY) . '/' . rawurlencode($gamertag) . '/' . rawurlencode($variant_class) . '/' . $iPage;
-		return new GameHistoryResponse(APIRequest($path));
+		$return = APIRequest($path);
+		if ($json) { return $return; } else { return new GameHistoryResponse($return); }
 	}
-	function getGameDetails($gameId){
+	
+	function getGameDetails($gameId, $json = false){
 		///game/details/{identifier}/{gameId}
 		$path = '/game/details/' . rawurlencode(APIKEY) . '/' . $gameId;
-		return new GameDetailsResponse(APIRequest($path));
+		$return = APIRequest($path);
+		if ($json) { return $return; } else { return new GameDetailsResponse($return); }
 	}
-	function getPlayerDetailsWithStatsByMap($gamertag){
+	
+	function getPlayerDetailsWithStatsByMap($gamertag, $json = false){
 		///player/details/bymap/{identifier}/{gamertag}
 		$path = '/player/details/bymap/' . rawurlencode(APIKEY) . '/' . rawurlencode($gamertag);
-		return new PlayerDetailsResponse(APIRequest($path));
+		$return = APIRequest($path);
+		if ($json) { return $return; } else { return new PlayerDetailsResponse($return); }
 	}
-	function getPlayerDetailsWithStatsByPlaylist($gamertag){
+	
+	function getPlayerDetailsWithStatsByPlaylist($gamertag, $json = false){
 		///player/details/byplaylist/{identifier}/{gamertag}
 		$path = '/player/details/byplaylist/' . rawurlencode(APIKEY) . '/' . rawurlencode($gamertag);
-		return new PlayerDetailsResponse(APIRequest($path));
+		$return = APIRequest($path);
+		if ($json) { return $return; } else { return new PlayerDetailsResponse($return); }
 	}
-	function getPlayerDetailsWithNoStats($gamertag){
+	
+	function getPlayerDetailsWithNoStats($gamertag, $json = false){
 		///player/details/nostats/{identifier}/{gamertag}
 		$path = '/player/details/nostats/' . rawurlencode(APIKEY) . '/' . rawurlencode($gamertag);
-		return new PlayerDetailsResponse(APIRequest($path));
+		$return = APIRequest($path);
+		if ($json) { return $return; } else { return new PlayerDetailsResponse($return); }
 	}
-	function getPlayerFileShare($gamertag){
+	
+	function getPlayerFileShare($gamertag, $json = false){
 		///file/share/{identifier}/{gamertag}
 		$path = '/file/share/' . rawurlencode(APIKEY) . '/' . rawurlencode($gamertag);
-		return new FileResponse(APIRequest($path));
+		$return = APIRequest($path);
+		if ($json) { return $return; } else { return new FileResponse($return); }
 	}
-	function getFileDetails($fileId){
+	
+	function getFileDetails($fileId, $json = false){
 		///file/details/{identifier}/{fileId}
 		$path = '/file/details/' . rawurlencode(APIKEY) . '/' . $fileId;
-		return new FileResponse(APIRequest($path));
+		$return = APIRequest($path);
+		if ($json) { return $return; } else { return new FileResponse($return); }
 	}
-	function getPlayerRecentScreenshots($gamertag){
+	function getPlayerRecentScreenshots($gamertag, $json = false){
 		///file/screenshots/{identifier}/{gamertag}
 		$path = '/file/screenshots/' . rawurlencode(APIKEY) . '/' . rawurlencode($gamertag);
-		return new FileResponse(APIRequest($path));
+		$return = APIRequest($path);
+		if ($json) { return $return; } else { return new FileResponse($return); }
 	}
-	function getPlayerFileSets($gamertag){
+	function getPlayerFileSets($gamertag, $json = false){
 		///file/sets/{identifier}/{gamertag}
 		$path = '/file/sets/' . rawurlencode(APIKEY) . '/' . rawurlencode($gamertag);
-		return new FileResponse(APIRequest($path));
+		$return = APIRequest($path);
+		if ($json) { return $return; } else { return new FileResponse($return); }
 	}
-	function getPlayerFileSetFiles($gamertag, $fileSetId){
+	function getPlayerFileSetFiles($gamertag, $fileSetId, $json = false){
 		///file/sets/files/{identifier}/{gamertag}/{fileSetId}	
 		$path = '/file/sets/files/' . rawurlencode(APIKEY) . '/' . rawurlencode($gamertag) . '/' . $fileSetId;
-		return new FileResponse(APIRequest($path));
+		$return = APIRequest($path);
+		if ($json) { return $return; } else { return new FileResponse($return); }
 	}
-	function getPlayerRenderedVideos($gamertag, $iPage = 0){
+	function getPlayerRenderedVideos($gamertag, $iPage = 0, $json = false){
 		///file/videos/{identifier}/{gamertag}/{iPage}
 		$path = '/file/videos/' . rawurlencode(APIKEY) . '/' . rawurlencode($gamertag) . '/' . $iPage;
-		return new FileResponse(APIRequest($path));
+		$return = APIRequest($path);
+		if ($json) { return $return; } else { return new FileResponse($return); }
 	}
 	function doReachFileSearch($file_category, $iPage = 0, $mapFilter = 'null', $engineFilter = 'null', $dateFilter = 'All', $sortFilter = 'MostRelevant', $tags = ''){
 		///file/search/{identifier}/{file_category}/{MapFilter}/{engineFilter}/{DateFilter}/{SortFilter}/{iPage}?tags={tags}
