@@ -7,6 +7,7 @@
 		private $AllMedalsById = array(); //Array of Medal
 		private $AllWeaponsById = array(); //Array of Weapon
 		private $GameVariantClassesKeysAndValues = array(); //Array
+		private $GlobalRanksById = array(); //Array
 	
 		public function __construct($GameMetaData){
 			foreach($GameMetaData->AllCommendationsById as $Commendation){
@@ -25,6 +26,7 @@
 				array_push($this->AllWeaponsById, new Weapon($Weapon->Value));
 			}
 			$this->GameVariantClassesKeysAndValues = $GameMetaData->GameVariantClassesKeysAndValues;
+			$this->GlobalRanksById = $GameMetaData->GlobalRanksById;
 		}
 		public function __get($a){
 			return $this->$a;
@@ -71,6 +73,13 @@
 		}
 		public function getGameVariantClassById($id){
 			foreach($this->GameVariantClassesKeysAndValues as $KeyAndValue){
+				if($KeyAndValue->Key == $id){
+					return $KeyAndValue;
+				}
+			}
+		}
+		public function getGlobalRankById($id){
+			foreach($this->GlobalRanksById as $KeyAndValue){
 				if($KeyAndValue->Key == $id){
 					return $KeyAndValue;
 				}

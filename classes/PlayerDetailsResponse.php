@@ -2,6 +2,7 @@
 	require_once('GlobalFunctions.php');
 	class PlayerDetailsResponse extends APIResponse{
 		private $AiStatistics = array(); //Array of PlayerAiAggregateDetailReach
+		private $CurrentRankIndex; // String
 		private $CurrentSeasonArenaStatistics = array(); //Array of PlayerArenaDetail
 		private $Player; //PlayerDetailReachAggregate
 		private $PlayerModelUrl; //String
@@ -31,6 +32,8 @@
 			else{
 				$this->CurrentSeasonArenaStatistics = $APIResponse->CurrentSeasonArenaStatistics;
 			}
+
+			$this->CurrentRankIndex = $APIResponse->CurrentRankIndex;
 			
 			$this->Player = new PlayerDetailReachAggregate($APIResponse->Player);
 			$this->PlayerModelUrl = $APIResponse->PlayerModelUrl;
