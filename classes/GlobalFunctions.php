@@ -18,9 +18,10 @@
 
 	function APIRequest($path){
 		define('BASE_URL', 'http://www.bungie.net/api/reach/reachapijson.svc', false);
-		$request = preg_replace('#/.{46}#', '', $path);	/* Remove the APIkey for additional use. */
+		$request = preg_replace('#/'.rawurlencode(APIKEY).'#', '', $path);	/* Remove the APIkey for additional use. */
 		$localpath = LOCALCACHE . strtolower(substr($request,0,strrpos($request,"/")));
 		$localfile = $localpath . strtolower(strrchr($request,"/")) . ".json";
+
 
 		/* Horribly embarassing caching check, never show anyone */
 		if (!@filemtime($localfile)) { $docache = true; }
@@ -82,7 +83,7 @@
 		}
 		
 		$path = '/game/metadata/' . rawurlencode(APIKEY);
-		return new MetaDataResponse(APIRequest($path));
+		return new MetaDataResponse(json_decode(APIRequest($path)));
 	}
 	
 	/*!	@function getCurrentChallenges
@@ -95,7 +96,7 @@
 		///game/challenges/{identifier}/
 		$path = '/game/challenges/' . rawurlencode(APIKEY);
 		$return = APIRequest($path);
-		if ($json) { return $return; } else { return new GameDetailsResponse($return); }
+		if ($json) { return $return; } else { return new GameDetailsResponse(json_decode($return)); }
 	}
 	
 	function getGameHistory($gamertag, $variant_class = 'Unknown', $iPage = 0, $json = false){
@@ -103,73 +104,73 @@
 		//variant_class = {"Campaign", "Firefight", "Competitive", "Arena", "Unknown"}
 		$path = '/player/gamehistory/' . rawurlencode(APIKEY) . '/' . rawurlencode($gamertag) . '/' . rawurlencode($variant_class) . '/' . $iPage;
 		$return = APIRequest($path);
-		if ($json) { return $return; } else { return new GameHistoryResponse($return); }
+		if ($json) { return $return; } else { return new GameHistoryResponse(json_decode($return)); }
 	}
 	
 	function getGameDetails($gameId, $json = false){
 		///game/details/{identifier}/{gameId}
 		$path = '/game/details/' . rawurlencode(APIKEY) . '/' . $gameId;
 		$return = APIRequest($path);
-		if ($json) { return $return; } else { return new GameDetailsResponse($return); }
+		if ($json) { return $return; } else { return new GameDetailsResponse(json_decode($return)); }
 	}
 	
 	function getPlayerDetailsWithStatsByMap($gamertag, $json = false){
 		///player/details/bymap/{identifier}/{gamertag}
 		$path = '/player/details/bymap/' . rawurlencode(APIKEY) . '/' . rawurlencode($gamertag);
 		$return = APIRequest($path);
-		if ($json) { return $return; } else { return new PlayerDetailsResponse($return); }
+		if ($json) { return $return; } else { return new PlayerDetailsResponse(json_decode($return)); }
 	}
 	
 	function getPlayerDetailsWithStatsByPlaylist($gamertag, $json = false){
 		///player/details/byplaylist/{identifier}/{gamertag}
 		$path = '/player/details/byplaylist/' . rawurlencode(APIKEY) . '/' . rawurlencode($gamertag);
 		$return = APIRequest($path);
-		if ($json) { return $return; } else { return new PlayerDetailsResponse($return); }
+		if ($json) { return $return; } else { return new PlayerDetailsResponse(json_decode($return)); }
 	}
 	
 	function getPlayerDetailsWithNoStats($gamertag, $json = false){
 		///player/details/nostats/{identifier}/{gamertag}
 		$path = '/player/details/nostats/' . rawurlencode(APIKEY) . '/' . rawurlencode($gamertag);
 		$return = APIRequest($path);
-		if ($json) { return $return; } else { return new PlayerDetailsResponse($return); }
+		if ($json) { return $return; } else { return new PlayerDetailsResponse(json_decode($return)); }
 	}
 	
 	function getPlayerFileShare($gamertag, $json = false){
 		///file/share/{identifier}/{gamertag}
 		$path = '/file/share/' . rawurlencode(APIKEY) . '/' . rawurlencode($gamertag);
 		$return = APIRequest($path);
-		if ($json) { return $return; } else { return new FileResponse($return); }
+		if ($json) { return $return; } else { return new FileResponse(json_decode($return)); }
 	}
 	
 	function getFileDetails($fileId, $json = false){
 		///file/details/{identifier}/{fileId}
 		$path = '/file/details/' . rawurlencode(APIKEY) . '/' . $fileId;
 		$return = APIRequest($path);
-		if ($json) { return $return; } else { return new FileResponse($return); }
+		if ($json) { return $return; } else { return new FileResponse(json_decode($return)); }
 	}
 	function getPlayerRecentScreenshots($gamertag, $json = false){
 		///file/screenshots/{identifier}/{gamertag}
 		$path = '/file/screenshots/' . rawurlencode(APIKEY) . '/' . rawurlencode($gamertag);
 		$return = APIRequest($path);
-		if ($json) { return $return; } else { return new FileResponse($return); }
+		if ($json) { return $return; } else { return new FileResponse(json_decode($return)); }
 	}
 	function getPlayerFileSets($gamertag, $json = false){
 		///file/sets/{identifier}/{gamertag}
 		$path = '/file/sets/' . rawurlencode(APIKEY) . '/' . rawurlencode($gamertag);
 		$return = APIRequest($path);
-		if ($json) { return $return; } else { return new FileResponse($return); }
+		if ($json) { return $return; } else { return new FileResponse(json_decode($return)); }
 	}
 	function getPlayerFileSetFiles($gamertag, $fileSetId, $json = false){
 		///file/sets/files/{identifier}/{gamertag}/{fileSetId}	
 		$path = '/file/sets/files/' . rawurlencode(APIKEY) . '/' . rawurlencode($gamertag) . '/' . $fileSetId;
 		$return = APIRequest($path);
-		if ($json) { return $return; } else { return new FileResponse($return); }
+		if ($json) { return $return; } else { return new FileResponse(json_decode($return)); }
 	}
 	function getPlayerRenderedVideos($gamertag, $iPage = 0, $json = false){
 		///file/videos/{identifier}/{gamertag}/{iPage}
 		$path = '/file/videos/' . rawurlencode(APIKEY) . '/' . rawurlencode($gamertag) . '/' . $iPage;
 		$return = APIRequest($path);
-		if ($json) { return $return; } else { return new FileResponse($return); }
+		if ($json) { return $return; } else { return new FileResponse(json_decode($return)); }
 	}
 	function doReachFileSearch($file_category, $iPage = 0, $mapFilter = 'null', $engineFilter = 'null', $dateFilter = 'All', $sortFilter = 'MostRelevant', $tags = ''){
 		///file/search/{identifier}/{file_category}/{MapFilter}/{engineFilter}/{DateFilter}/{SortFilter}/{iPage}?tags={tags}
@@ -182,7 +183,8 @@
 		//tags = a semicolon delimited list of tags, otherwise blank
 		
 		$path = '/file/search/' . rawurlencode(APIKEY) . '/' . $file_category . '/' . $mapFilter . '/' . $engineFilter . '/' . $dateFilter . '/' . $sortFilter . '/' . $iPage . '?tags=' . $tags;
-		return new FileResponse(APIRequest($path));
+		$return = APIRequest($path);
+		if ($json) { return $return; } else { return new FileResponse(json_decode($return)); }
 	}
 
 	//Other
@@ -240,6 +242,32 @@
 		return $theDate;	
 	}
 
+	/*!	@function parseJSONTime
+		@abstract returns a DateTime object from the Bungie formatted JSON playtime string.
+		@param playtime string - string in "PT12D12H12M12S" format.
+		@result array - array consistinging of total seconds and combined years, days, hours, minutes, and seconds
+	 */
+	function parseJSONTime($playtime)
+	{
+		$playtime = str_replace('PT', '', $playtime);
+		$expr = '/\d+\w/';
+
+		preg_match_all($expr, $playtime, $playtime, PREG_PATTERN_ORDER);
+
+		$return = array("total" => 0, "years" => 0, "days" => 0, "hours" => 0, "minutes" => 0, "seconds" => 0);
+
+		foreach($playtime[0] as $k=>$v)
+		{
+			if (substr($v,-1) == "S") { $return["seconds"] = substr($v,0,-1); $return["total"] += substr($v,0,-1); }
+			if (substr($v,-1) == "M") { $return["minutes"] = substr($v,0,-1); $return["total"] += substr($v,0,-1)*60; }
+			if (substr($v,-1) == "H") { $return["hours"] = substr($v,0,-1);   $return["total"] += substr($v,0,-1)*60*60; }
+			if (substr($v,-1) == "D") { $return["days"] = substr($v,0,-1);    $return["total"] += substr($v,0,-1)*60*60*24; }
+			if (substr($v,-1) == "Y") { $return["years"] = substr($v,0,-1);   $return["total"] += substr($v,0,-1)*60*60*24*365; }
+		}
+
+		return (array) $return;
+	}
+
 	function validateIPage($pageNum){
 		$expr = '/^[1-9]+[0-9]*$/'; //Numbers shouldn't be beginning with a 0
 		if(preg_match($expr, $page)){
@@ -247,6 +275,7 @@
 		}
 		return false;
 	}
+
 	function validatePlayerGamertag($gamertag){
 		/*
 			Xbox gamertag rules

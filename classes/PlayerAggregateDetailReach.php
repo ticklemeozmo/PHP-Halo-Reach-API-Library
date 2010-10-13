@@ -15,7 +15,7 @@
 		protected $total_deaths; //Integer
 		protected $total_first_place; //Integer
 		protected $total_kills; //Integer
-		protected $total_playtime; //DateTime or Integer
+		protected $total_playtime; //Array
 		protected $total_score; //Integer
 		protected $total_top_half_place; //Integer
 		protected $total_top_third_place; //Integer
@@ -38,7 +38,7 @@
 			$this->total_deaths = $PlayerAggregateDetailReach->total_deaths;
 			$this->total_first_place = $PlayerAggregateDetailReach->total_first_place;
 			$this->total_kills = $PlayerAggregateDetailReach->total_kills;
-			$this->total_playtime = $PlayerAggregateDetailReach->total_playtime;
+			$this->total_playtime = parseJSONTime($PlayerAggregateDetailReach->total_playtime);
 			$this->total_score = $PlayerAggregateDetailReach->total_score;
 			$this->total_top_half_place = $PlayerAggregateDetailReach->total_top_half_place;
 			$this->total_top_third_place = $PlayerAggregateDetailReach->total_top_third_place;
