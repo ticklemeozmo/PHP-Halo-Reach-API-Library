@@ -100,5 +100,20 @@
 				}
 			}
 		}
+
+		/*! @function getCampaignMissionByDifficulty
+			@abstract gets playlist stats of a given campaign mission on a given difficulty (Used for Campaign)
+			@param id int - the campaign mission
+			@param diff int - the difficulty level
+			@result Object - the PlayerAiAggregateDetailReach of the given campaign mission by difficulty or
+		   		NULL if it could not be found
+		*/
+		public function getCampaignMissionByDifficulty($id = CP_SECOND, $diff = HEROIC){
+			foreach($this->AiStatistics as $Playlist){
+				if(($Playlist->VariantClass == 4) && ($Playlist->MapId == $id) && ($Playlist->game_difficulty == $diff)){
+					return $Playlist;
+				}
+			}
+		}
 	}
 ?>
