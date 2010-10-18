@@ -15,6 +15,17 @@
 	define ('FIREFIGHT', '5');
 	define ('CUSTOM', '6');
 
+	/* Campaign Mission Maps */
+	define ('CP_SECOND',  5010);
+	define ('CP_THIRD',   5020);
+	define ('CP_FOURTH',  5030);
+	define ('CP_FIFTH',   5035);
+	define ('CP_SIXTH',   5045);
+	define ('CP_SEVENTH', 5050);
+	define ('CP_EIGHTH',  5052);
+	define ('CP_NINTH',   5060);
+	define ('CP_TENTH',   5070);
+	define ('CP_FINAL',   5080);
 
 	function APIRequest($path){
 		define('BASE_URL', 'http://www.bungie.net/api/reach/reachapijson.svc', false);
@@ -305,7 +316,7 @@
 		$c1 = $emblem->change_colors[1];
 		$c2 = $emblem->change_colors[2];
 		$c3 = $emblem->change_colors[3]; 
-	
+
 		return "http://www.bungie.net/Stats/emblem.ashx?s=$size&0=$c0&1=$c1&2=$c2&3=$c3&fi=$fi&bi=$bi&fl=$fl&m=3";
 	}
 
