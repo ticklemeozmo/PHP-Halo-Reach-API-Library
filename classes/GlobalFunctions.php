@@ -317,6 +317,8 @@
 		$c2 = $emblem->change_colors[2];
 		$c3 = $emblem->change_colors[3]; 
 
+		$fl = ($fl+1 % 2);
+
 		return "http://www.bungie.net/Stats/emblem.ashx?s=$size&0=$c0&1=$c1&2=$c2&3=$c3&fi=$fi&bi=$bi&fl=$fl&m=3";
 	}
 
