@@ -52,7 +52,7 @@
 			$this->total_kills = $PlayerAiAggregateDetailReach->total_kills;
 			$this->total_missions_beating_par = $PlayerAiAggregateDetailReach->total_missions_beating_par;
 			$this->total_missions_not_dying = $PlayerAiAggregateDetailReach->total_missions_not_dying;
-			$this->total_playtime = $PlayerAiAggregateDetailReach->total_playtime;
+			$this->total_playtime = parseJSONTime($PlayerAiAggregateDetailReach->total_playtime);
 			$this->total_score = $PlayerAiAggregateDetailReach->total_score;
 			$this->total_score_coop = $PlayerAiAggregateDetailReach->total_score_coop;
 			$this->total_score_solo = $PlayerAiAggregateDetailReach->total_score_solo;
