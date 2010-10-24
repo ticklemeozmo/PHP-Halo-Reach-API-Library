@@ -27,8 +27,9 @@
 	define ('CP_TENTH',   5070);
 	define ('CP_FINAL',   5080);
 
+	define('BASE_URL', 'http://www.bungie.net/api/reach/reachapijson.svc', false);
+
 	function APIRequest($path){
-		define('BASE_URL', 'http://www.bungie.net/api/reach/reachapijson.svc', false);
 		$request = preg_replace('#/'.rawurlencode(APIKEY).'#', '', $path);	/* Remove the APIkey for additional use. */
 		$localpath = LOCALCACHE . strtolower(substr($request,0,strrpos($request,"/")));
 		$localfile = $localpath . strtolower(strrchr($request,"/")) . ".json";
@@ -103,11 +104,11 @@
 		@result GameChallengesResponse Object - challenges for the day
 		@result string - json string unparsed
 	 */
-	function getCurrentChallenges($json = false){
+	function getGameChallenges($json = false){
 		///game/challenges/{identifier}/
 		$path = '/game/challenges/' . rawurlencode(APIKEY);
 		$return = APIRequest($path);
-		if ($json) { return $return; } else { return new GameDetailsResponse(json_decode($return)); }
+		if ($json) { return $return; } else { return new GameChallengesResponse(json_decode($return)); }
 	}
 	
 	function getGameHistory($gamertag, $variant_class = 'Unknown', $iPage = 0, $json = false){
