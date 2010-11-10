@@ -46,6 +46,7 @@
 			*/
 
 			if (strpos($path, "file", 1)   && (time() - filemtime($localpath) > 600)) { $docache = true; }
+			if (strpos($path, "challenges", 1)   && (time() - filemtime($localpath) > 600)) { $docache = true; }
 			if (strpos($path, "player", 1) && (time() - filemtime($localpath) > 600)) { $docache = true; }
 		}
 
@@ -307,9 +308,7 @@
 		return false;
 	}
 
-	function generateEmblem($emblem, $size){
-		$size=96;
-
+	function generateEmblem($emblem, $size = 96){
 		$bi = $emblem->background_index;
 		$fi = $emblem->foreground_index;
 		$fl = $emblem->flags;
