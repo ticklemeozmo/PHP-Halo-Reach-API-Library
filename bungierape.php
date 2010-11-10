@@ -24,6 +24,15 @@ else
 	die("No gamertag supplied.  Rerun with bungierape.php?gamertag=SomeGamerTag");
 }
 
+?>
+<script>
+function pageScroll() {
+	window.scrollBy(0,50); // horizontal and vertical scroll increments
+	scrolldelay = setTimeout('pageScroll()',100); // scrolls every 100 milliseconds
+}
+setTimeout('pageScroll()',100);
+</script>
+<?
 $more = true;
 $count = 0;
 
@@ -36,8 +45,8 @@ while($more)
 		echo 'Downloading: ' . $Game->GameId . ' - ' . $Game->GameVariantName . ' on ' . $Game->MapName . '<br />';
 		flush_buffers();
 		$game = getGameDetails($Game->GameId);
-		sleep(1);		// THIS IS IMPORTANT! Removal of this line could ban your API key, you only get 300 requests per minute!
 	}
+	sleep(3);		// THIS IS IMPORTANT! Removal of this line could ban your API key, you only get 300 requests per minute!
 	$more = $history->HasMorePages;
 	$count++;
 	if ($more) { echo "Retrieving page $count<br/>"; }
