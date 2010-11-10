@@ -9,7 +9,7 @@
 		public function __construct($ReachEmblem){
 			$this->background_index = $ReachEmblem->background_index;
 			$this->change_colors = $ReachEmblem->change_colors;
-			$this->flags = ($ReachEmblem->flags % 2);
+			$this->flags = $ReachEmblem->flags ? 0 : 1;
 			$this->foreground_index = $ReachEmblem->foreground_index;
 		}
 		public function __get($a){
